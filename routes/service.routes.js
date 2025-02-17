@@ -44,7 +44,7 @@ router.put('/api/services/new', async (req, res) => {
 	try {
 		const { clientId, serviceTypesId, branch, status } = req.body
 
-		if (!clientId || !serviceTypesId || !branch || status === undefined) {
+		if (!clientId || !serviceTypesId || !branch || !status) {
 			return res.status(400).json({ message: 'Missing required fields' })
 		}
 
@@ -65,7 +65,7 @@ router.put('/api/services/new', async (req, res) => {
 
 router.patch('/api/services/status/:id', async (req, res) => {
 	const status = req.body.status
-	if (status === undefined)
+	if (!status)
 		return res.status(400).json({ message: 'Missing required fields' })
 	try {
 		const updatedStatus = await Service.findByIdAndUpdate(

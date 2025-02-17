@@ -17,7 +17,7 @@ const serviceSchema = new mongoose.Schema(
 		receivedDate: { type: Date, default: Date.now, require: true },
 		returnDate: { type: Date },
 		branch: { type: String, required: true },
-		status: { type: Boolean, required: true },
+		status: { type: String, required: true },
 	},
 	{ versionKey: false }
 )
