@@ -6,4 +6,8 @@ const serviceTypeSchema = new mongoose.Schema({
 	price: { type: Number, required: true },
 })
 
-module.exports = mongoose.model('ServiceType', serviceTypeSchema)
+module.exports = mongoose.model(
+	'ServiceType',
+	serviceTypeSchema,
+	'ServiceTypes'
+)
