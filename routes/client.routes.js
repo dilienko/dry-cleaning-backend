@@ -4,7 +4,7 @@ const Client = require('../models/client.model')
 const router = express.Router()
 
 router.get('/api/clients', async (req, res) => {
-	const { firstName, surname, middleName } = req.body
+	const { firstName, surname, middleName } = req.params
 
 	try {
 		if (!firstName || !surname || !middleName) {

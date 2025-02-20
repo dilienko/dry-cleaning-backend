@@ -6,7 +6,7 @@ const connectDB = () => {
 		.connect(process.env.DB_URI)
 		.then(() => console.log('MongoDB Connected...'))
 		.catch(error => {
-			console.error('❌ MongoDB Connection Error:', error)
+			console.error(' MongoDB Connection Error:', error)
 		})
 }
 

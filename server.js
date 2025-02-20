@@ -1,11 +1,16 @@
 const express = require('express')
 const connectDB = require('./config/db')
 require('dotenv').config()
+require('./config/passport')
 const cors = require('cors')
+const passport = require('passport')
 
 const serviceTypesRouter = require('./routes/serviceType.routes')
 const clientRouter = require('./routes/client.routes')
 const servicesRouter = require('./routes/service.routes')
+const authRouter = require('./routes/auth.routes')
+
+const authMiddleware = require('./middlewares/authMiddleware')
 
 const app = express()
 app.use(cors())
@@ -13,7 +18,10 @@ app.use(express.json())
 
 connectDB()
 
-app.use('/', serviceTypesRouter)
+app.use(passport.initialize())
+app.use('/', authRouter)
+
+app.use('/', authMiddleware, serviceTypesRouter)
 app.use('/', clientRouter)
 app.use('/', servicesRouter)
 

@@ -6,7 +6,7 @@ const router = express.Router()
 
 //Може повертати пустий масив
 router.get('/api/services/clientOrders', async (req, res) => {
-	const { firstName, surname, middleName } = req.body
+	const { firstName, surname, middleName } = req.query
 	try {
 		const currentClient = await Client.findOne({
 			firstName: firstName,
