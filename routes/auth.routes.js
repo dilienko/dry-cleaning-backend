@@ -5,6 +5,44 @@ require('dotenv').config()
 
 const router = express.Router()
 
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: User authorization
+ *     description: Validates username and password, returns JWT token if authentication is successful.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful authorization, returns a token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *
+ *       400:
+ *         description: Incorrect login or password.
+ *       500:
+ *         description: Server error.
+ */
 router.post('/login', async (req, res) => {
 	const { username, password } = req.body
 

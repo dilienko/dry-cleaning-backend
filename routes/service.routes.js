@@ -4,6 +4,38 @@ const Client = require('../models/client.model')
 
 const router = express.Router()
 
+/**
+ * @swagger
+ * /api/services/clientOrders:
+ *   get:
+ *     summary: Receiving customer orders
+ *     parameters:
+ *       - in: query
+ *         name: firstName
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Client`s name (Ім'я клієнта)
+ *       - in: query
+ *         name: surname
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Client`s surname (Прізвище клієнта)
+ *       - in: query
+ *         name: middleName
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Client`s middle name (По батькові клієнта)
+ *     responses:
+ *       200:
+ *         description: Customer orders array
+ *       404:
+ *         description: Customer not found
+ *       500:
+ *         description: Server error
+ */
 router.get('/api/services/clientOrders', async (req, res) => {
 	const { firstName, surname, middleName } = req.query
 	try {
@@ -26,6 +58,24 @@ router.get('/api/services/clientOrders', async (req, res) => {
 	}
 })
 
+/**
+ * @swagger
+ * /api/services/:
+ *   get:
+ *     summary: Receive all orders or orders of a specific branch
+ *     parameters:
+ *       - in: query
+ *         name: branch
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Dry cleaner branch name (optional)
+ *     responses:
+ *       200:
+ *         description: Order list
+ *       500:
+ *         description: Server error
+ */
 router.get('/api/services/', async (req, res) => {
 	try {
 		const branch = req.query.branch
@@ -38,6 +88,41 @@ router.get('/api/services/', async (req, res) => {
 	}
 })
 
+/**
+ * @swagger
+ * /api/services/new:
+ *   put:
+ *     summary: Creating a new order
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               clientId:
+ *                 type: string
+ *                 description: Client's ID
+ *               serviceTypesId:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 description: Service types ID
+ *               branch:
+ *                 type: string
+ *                 description: Dry cleaning brach
+ *               status:
+ *                 type: string
+ *                 description: Order status
+ *               totalPrice:
+ *                 type: number
+ *                 description: Total price
+ *     responses:
+ *       201:
+ *         description: Order created
+ *       400:
+ *         description: Creation error
+ */
 router.put('/api/services/new', async (req, res) => {
 	try {
 		const { clientId, serviceTypesId, branch, status, totalPrice } = req.body
@@ -62,6 +147,30 @@ router.put('/api/services/new', async (req, res) => {
 	}
 })
 
+/**
+ * @swagger
+ * /api/services/status:
+ *   patch:
+ *     summary: Order status update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 description: Order ID
+ *               status:
+ *                 type: string
+ *                 description: New order status
+ *     responses:
+ *       200:
+ *         description: Order status updated
+ *       400:
+ *         description: Required parameters are missing or update error occurred.
+ */
 router.patch('/api/services/status', async (req, res) => {
 	const { status, id } = req.body
 	if (!status || !id)

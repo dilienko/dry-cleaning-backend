@@ -1,4 +1,6 @@
 const express = require('express')
+const swaggerJsdoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
 const connectDB = require('./config/db')
 require('dotenv').config()
 require('./config/passport')
@@ -17,6 +19,23 @@ app.use(cors())
 app.use(express.json())
 
 connectDB()
+
+const options = {
+	definition: {
+		openapi: '3.0.0',
+		info: {
+			title: 'Dry Cleaning API',
+			version: '1.0.0',
+			description: 'API for dry-cleaning automatization',
+		},
+	},
+	apis: ['./routes/*.js'],
+}
+
+const swaggerSpec = swaggerJsdoc(options)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
+console.log('Swagger API Docs available at /api-docs')
 
 app.use(passport.initialize())
 app.use('/', authRouter)
