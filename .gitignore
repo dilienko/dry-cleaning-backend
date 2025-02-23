@@ -8,6 +8,8 @@
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
+.DS_Store
+
 # dotenv environment variable files
 .env
 .env.development.local

@@ -3,8 +3,8 @@ const Client = require('../models/client.model')
 
 const router = express.Router()
 
-router.get('/api/clients', async (req, res) => {
-	const { firstName, surname, middleName } = req.params
+router.get('/api/client', async (req, res) => {
+	const { firstName, surname, middleName } = req.query
 
 	try {
 		if (!firstName || !surname || !middleName) {
@@ -22,10 +22,10 @@ router.get('/api/clients', async (req, res) => {
 	}
 })
 
-router.put('/api/clients/:id', async (req, res) => {
+router.patch('/api/client', async (req, res) => {
 	try {
 		const updatedClient = await Client.findByIdAndUpdate(
-			req.params.id,
+			req.body.id,
 			{
 				$set: { isRegular: true },
 			},

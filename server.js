@@ -22,8 +22,8 @@ app.use(passport.initialize())
 app.use('/', authRouter)
 
 app.use('/', authMiddleware, serviceTypesRouter)
-app.use('/', clientRouter)
-app.use('/', servicesRouter)
+app.use('/', authMiddleware, clientRouter)
+app.use('/', authMiddleware, servicesRouter)
 
 app.get('/', (req, res) => {
 	res.send('API is running... ')

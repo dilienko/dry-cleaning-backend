@@ -18,6 +18,7 @@ const serviceSchema = new mongoose.Schema(
 		returnDate: { type: Date },
 		branch: { type: String, required: true },
 		status: { type: String, required: true },
+		totalPrice: { type: Number, required: true },
 	},
 	{ versionKey: false }
 )

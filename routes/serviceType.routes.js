@@ -3,7 +3,7 @@ const ServiceType = require('../models/serviceType.model')
 
 const router = express.Router()
 
-router.get('/service-types', async (req, res) => {
+router.get('/api/service-types', async (req, res) => {
 	try {
 		const serviceTypes = await ServiceType.find({})
 		res.status(200).json(serviceTypes)
